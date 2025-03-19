@@ -9,5 +9,5 @@ public class ClynicServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ClynicServiceApplication.class, args);
     }
-
+    
 }
