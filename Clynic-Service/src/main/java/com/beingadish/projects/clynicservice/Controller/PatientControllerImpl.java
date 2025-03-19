@@ -23,6 +23,6 @@ public class PatientControllerImpl implements PatientController {
     @GetMapping
     public ResponseEntity<List<PatientResponseDTO>> getPatients() {
         List<PatientResponseDTO> patients = patientService.getPatients();
-        return ResponseEntity.status(200).body(patients);
+        return ResponseEntity.ok().body(patients);
     }
 }
