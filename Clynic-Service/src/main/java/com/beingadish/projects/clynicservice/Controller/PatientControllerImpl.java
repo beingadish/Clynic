@@ -1,0 +1,28 @@
+package com.beingadish.projects.clynicservice.Controller;
+
+import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
+import com.beingadish.projects.clynicservice.Service.PatientService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/patients")
+public class PatientControllerImpl implements PatientController {
+
+    private final PatientService patientService;
+
+    PatientControllerImpl(PatientService patientService) {
+        this.patientService = patientService;
+    }
+
+    @Override
+    @GetMapping
+    public ResponseEntity<List<PatientResponseDTO>> getPatients() {
+        List<PatientResponseDTO> patients = patientService.getPatients();
+        return ResponseEntity.status(200).body(patients);
+    }
+}
