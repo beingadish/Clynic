@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Clynic.iml" filepath="$PROJECT_DIR$/Clynic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Clynic-Service/Clynic-Service.iml" filepath="$PROJECT_DIR$/Clynic-Service/Clynic-Service.iml" />
     </modules>
   </component>
 </project>
