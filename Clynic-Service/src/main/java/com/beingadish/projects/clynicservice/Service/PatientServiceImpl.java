@@ -2,6 +2,7 @@ package com.beingadish.projects.clynicservice.Service;
 
 import com.beingadish.projects.clynicservice.DTO.Patient.PatientRequestDTO;
 import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
+import com.beingadish.projects.clynicservice.Exception.EmailAlreadyExistException;
 import com.beingadish.projects.clynicservice.Mapper.PatientMapper;
 import com.beingadish.projects.clynicservice.Model.Patient;
 import com.beingadish.projects.clynicservice.Repository.PatientRepository;
@@ -31,8 +32,13 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public PatientResponseDTO createPatient(PatientRequestDTO patient) {
-        Patient newPatient = patientRepository.save(PatientMapper.toModel(patient));
-        return PatientMapper.toDto(newPatient);
+    public PatientResponseDTO createPatient(PatientRequestDTO patientRequestDTO) {
+        if(patientRepository.existsByEmail(patientRequestDTO.getEmail())) {
+            throw new EmailAlreadyExistException("A patient with this email already exists" + patientRequestDTO.getEmail());
+        } else {
+            Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
+            return PatientMapper.toDto(newPatient);
+        }
+
     }
 }
