@@ -1,5 +1,6 @@
 package com.beingadish.projects.clynicservice.Exception;
 
+import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String,String>> handleEmailAlreadyExistException(EmailAlreadyExistException exception){
         // Adding a Custom Logger using SLF4J (SimpleLoggingFacade4Java)
         log.warn("Email Already Exists {}", exception.getMessage());
+        Map<String,String> errors = new HashMap<>();
+        errors.put("message", exception.getMessage());
+        return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(PatientNotFoundException.class)
+    public ResponseEntity<Map<String,String>> handlePatientNotFoundException(PatientNotFoundException exception){
+        // Adding a Custom Logger using SLF4J (SimpleLoggingFacade4Java)
+        log.warn("Patient Not Found {}", exception.getMessage());
         Map<String,String> errors = new HashMap<>();
         errors.put("message", exception.getMessage());
         return ResponseEntity.badRequest().body(errors);
