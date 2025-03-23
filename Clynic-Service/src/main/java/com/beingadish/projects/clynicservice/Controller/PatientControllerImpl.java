@@ -5,7 +5,9 @@ import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
 import com.beingadish.projects.clynicservice.Mapper.PatientMapper;
 import com.beingadish.projects.clynicservice.Service.PatientService;
 import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +38,7 @@ public class PatientControllerImpl implements PatientController {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDTO> updatePatient(@Valid @RequestBody PatientRequestDTO patient, @PathVariable UUID id) {
+    public ResponseEntity<PatientResponseDTO> updatePatient(@Validated({Default.class}) @RequestBody PatientRequestDTO patient, @PathVariable UUID id) {
         return ResponseEntity.ok().body(patientService.updatePatient(id, patient));
     }
 }
