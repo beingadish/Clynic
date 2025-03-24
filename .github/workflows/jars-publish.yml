@@ -1,10 +1,8 @@
-name: Build and Upload JAR
+name: Build and Release JAR
 
 on:
   push:
     branches: [ main ]
-    tags:
-      - 'v*' # Triggers workflow on version tags like v1.0.0
 
 jobs:
   build:
@@ -23,30 +21,19 @@ jobs:
       - name: Build with Maven
         run: mvn clean package --file Clynic-Service/pom.xml
 
-      - name: Upload JAR Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: clynic-service-jar
-          path: Clynic-Service/target/*.jar
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v') # Runs only when a version tag is pushed
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Download JAR Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: clynic-service-jar
-          path: Clynic-Service/target
+      - name: Create Version Tag
+        id: tag
+        run: |
+          VERSION=$(date +'%Y%m%d-%H%M%S')  # Generate a timestamp-based version
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          git tag -a "v$VERSION" -m "Release version $VERSION"
+          git push origin "v$VERSION"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ env.VERSION }}
           files: Clynic-Service/target/*.jar
+          body: "Automated release of JAR file."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
