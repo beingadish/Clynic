@@ -22,6 +22,8 @@ jobs:
       - name: Build with Maven - Clynic-Service
         run: mvn clean package --file Clynic-Service/pom.xml
 
+
+
       - name: Build with Maven - Billing-Service
         run: mvn clean package --file Billing-Service/pom.xml
 
