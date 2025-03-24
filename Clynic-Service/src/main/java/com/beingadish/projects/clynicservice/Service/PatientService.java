@@ -15,7 +15,6 @@ public interface PatientService {
 
     PatientResponseDTO updatePatient(UUID patientUuid, PatientRequestDTO patient);
 
-
-
+    void deletePatient(UUID patientUuid);
 
 }

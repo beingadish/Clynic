@@ -7,7 +7,10 @@ import com.beingadish.projects.clynicservice.Exception.PatientNotFoundException;
 import com.beingadish.projects.clynicservice.Mapper.PatientMapper;
 import com.beingadish.projects.clynicservice.Model.Patient;
 import com.beingadish.projects.clynicservice.Repository.PatientRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -59,5 +62,12 @@ public class PatientServiceImpl implements PatientService {
             Patient updatedPatient = patientRepository.save(patient1);
             return PatientMapper.toDto(updatedPatient);
         }
+    }
+
+    @Override
+    public void deletePatient(UUID id) {
+        // If Patient Not Found then Exception Will automatically gets handled
+        Patient patient1 = patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + id));
+        patientRepository.delete(patient1);
     }
 }

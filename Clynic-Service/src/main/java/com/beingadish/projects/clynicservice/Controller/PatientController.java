@@ -15,4 +15,6 @@ public interface PatientController {
 
     ResponseEntity<PatientResponseDTO> updatePatient(PatientRequestDTO patient, UUID patientId);
 
+    ResponseEntity<Void> deletePatient(UUID patientId);
+
 }

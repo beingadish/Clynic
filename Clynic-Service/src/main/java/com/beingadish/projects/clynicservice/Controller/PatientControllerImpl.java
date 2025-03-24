@@ -41,4 +41,13 @@ public class PatientControllerImpl implements PatientController {
     public ResponseEntity<PatientResponseDTO> updatePatient(@Validated({Default.class}) @RequestBody PatientRequestDTO patient, @PathVariable UUID id) {
         return ResponseEntity.ok().body(patientService.updatePatient(id, patient));
     }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePatient(@PathVariable UUID id) {
+        patientService.deletePatient(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
