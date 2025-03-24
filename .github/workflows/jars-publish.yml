@@ -24,10 +24,13 @@ jobs:
       - name: Create Version Tag
         id: tag
         run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
           VERSION=$(date +'%Y%m%d-%H%M%S')  # Generate a timestamp-based version
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           git tag -a "v$VERSION" -m "Release version $VERSION"
           git push origin "v$VERSION"
+
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
