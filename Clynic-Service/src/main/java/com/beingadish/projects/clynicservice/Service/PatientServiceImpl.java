@@ -49,7 +49,7 @@ public class PatientServiceImpl implements PatientService {
 
         // If Patient Not Found then Exception Will automatically gets handled
         Patient patient1 = patientRepository.findById(patientUuid).orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientUuid));
-        if(patientRepository.existsByEmail(patientRequestDTO.getEmail())) {
+        if(patientRepository.existsByEmailAndIdNot(patientRequestDTO.getEmail(),patientUuid)) {
             throw new EmailAlreadyExistException("A patient with this email already exists" + patientRequestDTO.getEmail());
         } else {
             patient1.setEmail(patientRequestDTO.getEmail());
