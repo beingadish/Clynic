@@ -1,17 +1,15 @@
 package com.beingadish.projects.clynicservice.Service;
 
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientRequestDTO;
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientRequestDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientResponseDTO;
 import com.beingadish.projects.clynicservice.Exception.EmailAlreadyExistException;
 import com.beingadish.projects.clynicservice.Exception.PatientNotFoundException;
 import com.beingadish.projects.clynicservice.Mapper.PatientMapper;
 import com.beingadish.projects.clynicservice.Model.Patient;
 import com.beingadish.projects.clynicservice.Repository.PatientRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 

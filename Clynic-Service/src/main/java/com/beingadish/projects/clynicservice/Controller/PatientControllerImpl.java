@@ -1,8 +1,8 @@
 package com.beingadish.projects.clynicservice.Controller;
 
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientRequestDTO;
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
-import com.beingadish.projects.clynicservice.Mapper.PatientMapper;
+import com.beingadish.projects.clynicservice.DTO.PatientRequestDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientResponseDTO;
+import com.beingadish.projects.clynicservice.DTO.Validators.CreatePatientValidationGroup;
 import com.beingadish.projects.clynicservice.Service.PatientService;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
@@ -32,7 +32,7 @@ public class PatientControllerImpl implements PatientController {
 
     @Override
     @PostMapping
-    public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody PatientRequestDTO patient) {
+    public ResponseEntity<PatientResponseDTO> createPatient(@Validated({Default.class, CreatePatientValidationGroup.class}) @RequestBody PatientRequestDTO patient) {
         return ResponseEntity.ok().body(patientService.createPatient(patient));
     }
 

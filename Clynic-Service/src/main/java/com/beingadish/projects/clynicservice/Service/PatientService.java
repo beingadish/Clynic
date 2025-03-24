@@ -1,7 +1,7 @@
 package com.beingadish.projects.clynicservice.Service;
 
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientRequestDTO;
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientRequestDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientResponseDTO;
 
 import java.util.List;
 import java.util.UUID;

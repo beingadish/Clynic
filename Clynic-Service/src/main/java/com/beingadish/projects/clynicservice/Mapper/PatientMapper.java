@@ -1,11 +1,10 @@
 package com.beingadish.projects.clynicservice.Mapper;
 
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientRequestDTO;
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientRequestDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientResponseDTO;
 import com.beingadish.projects.clynicservice.Model.Patient;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class PatientMapper {
 

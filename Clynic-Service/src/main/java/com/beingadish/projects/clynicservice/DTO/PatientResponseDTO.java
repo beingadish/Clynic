@@ -1,4 +1,4 @@
-package com.beingadish.projects.clynicservice.DTO.Patient;
+package com.beingadish.projects.clynicservice.DTO;
 
 // Here using this DTO Class we are hiding the implementation (ABSTRACTION) details of our Patient Model Class
 // It is also easy for us to manage the simpler data types at the frontend since we are

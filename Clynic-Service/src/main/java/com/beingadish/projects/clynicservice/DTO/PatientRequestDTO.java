@@ -1,5 +1,6 @@
-package com.beingadish.projects.clynicservice.DTO.Patient;
+package com.beingadish.projects.clynicservice.DTO;
 
+import com.beingadish.projects.clynicservice.DTO.Validators.CreatePatientValidationGroup;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,7 +21,7 @@ public class PatientRequestDTO {
     @NotBlank(message = "Address is required")
     private String address;
 
-    @NotBlank(message = "Registered date is required")
+    @NotBlank(groups = CreatePatientValidationGroup.class, message = "Registered date is required")
     private String registeredDate;
 
     public String getName() {

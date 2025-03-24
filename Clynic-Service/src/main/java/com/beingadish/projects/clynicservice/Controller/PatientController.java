@@ -1,7 +1,7 @@
 package com.beingadish.projects.clynicservice.Controller;
 
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientRequestDTO;
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientRequestDTO;
+import com.beingadish.projects.clynicservice.DTO.PatientResponseDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

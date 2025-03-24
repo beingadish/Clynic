@@ -1,6 +1,5 @@
 package com.beingadish.projects.clynicservice.Exception;
 
-import com.beingadish.projects.clynicservice.DTO.Patient.PatientResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
