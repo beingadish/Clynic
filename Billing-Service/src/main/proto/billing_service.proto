@@ -1,0 +1,31 @@
+// Describing the version of Proto that we are using
+syntax = "proto3";
+
+// Splits our Service Requests & Response Files into Diff Files (By Default its in the same) (this method makes it easier for us to manage the codes)
+option java_multiple_files = true;
+
+// All our java code will be packaged under "billing" package
+option java_package = "billing";
+
+// Creating the Billing Service
+service BillingService {
+
+  // Our Service will contain a RPC Method of CreateBillingAccount which will receive a BillingRequest from a client
+  // and return a BillingResponse
+  rpc CreateBillingAccount(BillingRequest) returns (BillingResponse);
+}
+
+// Describing the Skeleton of BillingRequest (KindOf DTO or Java Object)
+message BillingRequest {
+  // The numbers here are used for Serialization & Deserialization (not assigned)
+  // NUMBERS should be UNIQUE
+  string patientId = 1;
+  string name = 2;
+  string email = 3;
+}
+
+// Response Skeleton
+message BillingResponse {
+  string accountId = 1;
+  string status = 2;
+}
