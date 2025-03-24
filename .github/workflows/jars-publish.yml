@@ -19,13 +19,16 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Build with Maven
+      - name: Build with Maven - Clynic-Service
         run: mvn clean package --file Clynic-Service/pom.xml
+
+      - name: Build with Maven - Billing-Service
+        run: mvn clean package --file Billing-Service/pom.xml
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "Clynic-Service/target/*.jar"
+          artifacts: "Clynic-Service/target/*.jar,Billing-Service/target/*.jar"
           tag: "v1.0.${{ github.run_number }}"
           token: ${{ secrets.GITHUB_TOKEN }}
           name: "Release v1.0.${{ github.run_number }}"
