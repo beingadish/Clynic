@@ -3,6 +3,8 @@ name: Build and Upload JAR
 on:
   push:
     branches: [ main ]
+    tags:
+      - 'v*' # Triggers workflow on version tags like v1.0.0
 
 jobs:
   build:
@@ -26,3 +28,25 @@ jobs:
         with:
           name: clynic-service-jar
           path: Clynic-Service/target/*.jar
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') # Runs only when a version tag is pushed
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download JAR Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: clynic-service-jar
+          path: Clynic-Service/target
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Clynic-Service/target/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
