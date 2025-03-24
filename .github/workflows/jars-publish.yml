@@ -27,6 +27,6 @@ jobs:
         with:
           artifacts: "Clynic-Service/target/*.jar"
           tag: "v1.0.${{ github.run_number }}"
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           name: "Release v1.0.${{ github.run_number }}"
           body: "Automated release of JAR file."
