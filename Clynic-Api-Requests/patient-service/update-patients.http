@@ -1,0 +1,12 @@
+### POST request to Register a new Patient
+PUT http://localhost:4000/patients/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+  "name": "Aadarsh Pandey",
+  "email": "newaadarshPandey@gmail.com",
+  "address": "KVR Layout, Bengaluru",
+  "dateOfBirth": "2001-09-13"
+}
+
+###
