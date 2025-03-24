@@ -71,14 +71,6 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>github</id>
-            <name>GitHub Packages for com.beingadish.projects/Clynic-Service</name>
-            <url>https://maven.pkg.github.com/beingadish/Clynic</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <build>
         <plugins>
             <plugin>

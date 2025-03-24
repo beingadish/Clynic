@@ -50,6 +50,7 @@ public class PatientControllerImpl implements PatientController {
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete Patient")
+
     public ResponseEntity<Void> deletePatient(@PathVariable UUID id) {
         patientService.deletePatient(id);
         return ResponseEntity.noContent().build();
