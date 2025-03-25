@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,3 +36,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: "Release v1.0.${{ github.run_number }}"
           body: "Automated release of JAR file."
+
+      - name: Delete Old Releases
+        uses: Nats-ji/delete-old-releases@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          keep-count: '3'
+          remove-tags: true
+          keep-old-minor-releases: false
