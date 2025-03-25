@@ -3,11 +3,11 @@ POST http://localhost:4000/patients
 Content-Type: application/json
 
 {
-  "name": "Aadarsh Pandey",
-  "email": "newaadarshPandey@gmail.com",
-  "address": "KVR Layout, Bengaluru",
-  "dateOfBirth": "2001-09-13",
-  "registeredDate": "2025-03-20"
+  "name": "Aadarsh Pandey with Billing Account",
+  "email": "biller@test.com",
+  "address": "Billing Layout, Bengaluru",
+  "dateOfBirth": "2006-09-13",
+  "registeredDate": "2025-03-25"
 }
 
 ###

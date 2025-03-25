@@ -7,10 +7,8 @@ import com.beingadish.projects.clynicservice.Exception.PatientNotFoundException;
 import com.beingadish.projects.clynicservice.Mapper.PatientMapper;
 import com.beingadish.projects.clynicservice.Model.Patient;
 import com.beingadish.projects.clynicservice.Repository.PatientRepository;
-import org.springframework.http.ResponseEntity;
+import com.beingadish.projects.clynicservice.gRPC.BillingServiceGrpcClient;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,11 +18,15 @@ import java.util.UUID;
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
+    private final BillingServiceGrpcClient billingServiceGrpcClient;
+
 
     // Dependency Injection
-    public PatientServiceImpl(PatientRepository patientRepository) {
+    public PatientServiceImpl(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient) {
         this.patientRepository = patientRepository;
+        this.billingServiceGrpcClient = billingServiceGrpcClient;
     }
+
 
 
     @Override
@@ -42,6 +44,8 @@ public class PatientServiceImpl implements PatientService {
             throw new EmailAlreadyExistException("A patient with this email already exists" + patientRequestDTO.getEmail());
         } else {
             Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
+            // On Successful creation of New Patient we create a new billing account for the Patient
+            billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(),newPatient.getName(),newPatient.getEmail());
             return PatientMapper.toDto(newPatient);
         }
 
