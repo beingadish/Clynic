@@ -8,6 +8,7 @@ import com.beingadish.projects.clynicservice.Mapper.PatientMapper;
 import com.beingadish.projects.clynicservice.Model.Patient;
 import com.beingadish.projects.clynicservice.Repository.PatientRepository;
 import com.beingadish.projects.clynicservice.gRPC.BillingServiceGrpcClient;
+import com.beingadish.projects.clynicservice.kafka.KafkaProducer;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,12 +20,14 @@ public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
     private final BillingServiceGrpcClient billingServiceGrpcClient;
+    private final KafkaProducer kafkaProducer;
 
 
     // Dependency Injection
-    public PatientServiceImpl(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient) {
+    public PatientServiceImpl(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer) {
         this.patientRepository = patientRepository;
         this.billingServiceGrpcClient = billingServiceGrpcClient;
+        this.kafkaProducer = kafkaProducer;
     }
 
 
@@ -46,6 +49,10 @@ public class PatientServiceImpl implements PatientService {
             Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
             // On Successful creation of New Patient we create a new billing account for the Patient
             billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(),newPatient.getName(),newPatient.getEmail());
+
+            // Using Kafka Producer to Send New Patient
+            kafkaProducer.sendEvent(newPatient);
+
             return PatientMapper.toDto(newPatient);
         }
 
