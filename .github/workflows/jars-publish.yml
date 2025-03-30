@@ -37,7 +37,7 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "Clynic-Service/target/*.jar,Billing-Service/target/*.jar,Analytics-Service/target/*.jar"
+          artifacts: "Clynic-Service/target/*.jar,Billing-Service/target/*.jar,Analytics-Service/target/*.jar,clynic-api-gateway/target/*.jar"
           tag: "v1.0.${{ github.run_number }}"
           token: ${{ secrets.GITHUB_TOKEN }}
           name: "Release v1.0.${{ github.run_number }}"
