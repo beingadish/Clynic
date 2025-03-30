@@ -3,11 +3,11 @@ POST http://localhost:4000/patients
 Content-Type: application/json
 
 {
-  "name": "Aadarsh Pandey For Kafka Producer 6",
-  "email": "kakfa6@producer.com",
+  "name": "Aadarsh Pandey KAFKA ERROR TEST 10",
+  "email": "kakfaError10@producer.com",
   "address": "Kafka Layout, Bengaluru",
   "dateOfBirth": "2006-09-13",
-  "registeredDate": "2025-03-25"
+  "registeredDate": "2025-03-30"
 }
 
 ###

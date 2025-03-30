@@ -28,7 +28,11 @@ public class KafkaProducer {
                 .build();
 
         try {
-            kafkaTemplate.send("patient", patientEvent.toByteArray());
+            System.out.println("Sending Patient Event: " + patientEvent);
+            System.out.println("Patient Id Type: " + patientEvent.getPatientId().getClass().getName());
+            byte[] payload = patientEvent.toByteArray();
+            System.out.println("Payload Type: " + payload.getClass().getName());
+            kafkaTemplate.send("patient", payload);
         } catch (Exception e) {
             log.error("Error sending patient event: {}", patientEvent);
         }

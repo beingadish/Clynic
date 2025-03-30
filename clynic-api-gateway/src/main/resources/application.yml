@@ -1,0 +1,30 @@
+server:
+  port: 4004
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        ## REST CLIENT --> http://localhost:4004/api/patients
+        ## API GATEWAY --> http://Clynic-Service:4000/patient/**
+        ## CLYNIC SERVICE (SPRING BOOT APP) --> /patients --> Patients Array
+        - id: patient-service-route
+          uri: http://Clynic-Service:4000
+#          Predicates are what used to determine what requests get sent to our Clynic-Service
+          predicates:
+            - Path=/api/patients/**
+#         A way for us to re-write our Predicates before it forwards our requests to the main service
+          filters:
+#            Strip out all the texts after the first slash from the predicate & assign it to the URI (Predicate)
+            - StripPrefix=1
+
+## For the API Documentation of our Project
+        ## REST-CLIENT --> http://localhost:4004/api-docs/patients
+        ## API GATEWAY --> http://Clynic-Service:4000/v3/api-docs
+
+        - id: api-docs-clynic-route
+          uri: http://Clynic-Service:4000
+          predicates:
+              - Path=/api-docs/patients
+          filters:
+              - RewritePath=/api-docs/Clynic,/v3/api-docs
