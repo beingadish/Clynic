@@ -1,0 +1,11 @@
+### Signup Request to Create a User
+POST http://localhost:4005/signup
+Content-Type: application/json
+
+{
+  "email": "testing@test.com",
+  "password": "password123",
+  "role": "ADMIN"
+}
+
+###

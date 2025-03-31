@@ -1,0 +1,10 @@
+### Login Request to retrieve a Token
+POST http://localhost:4005/login
+Content-Type: application/json
+
+{
+  "email": "testing@test.com",
+  "password": "password123"
+}
+
+###
