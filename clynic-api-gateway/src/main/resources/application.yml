@@ -17,6 +17,7 @@ spring:
           filters:
 #            Strip out all the texts after the first slash from the predicate & assign it to the URI (Predicate)
             - StripPrefix=1
+            - JwtValidation
 
         ## For the API Documentation of our Project
         ## REST-CLIENT --> http://localhost:4004/api-docs/patients
