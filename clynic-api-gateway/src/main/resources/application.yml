@@ -18,7 +18,7 @@ spring:
 #            Strip out all the texts after the first slash from the predicate & assign it to the URI (Predicate)
             - StripPrefix=1
 
-## For the API Documentation of our Project
+        ## For the API Documentation of our Project
         ## REST-CLIENT --> http://localhost:4004/api-docs/patients
         ## API GATEWAY --> http://Clynic-Service:4000/v3/api-docs
 
@@ -28,3 +28,13 @@ spring:
               - Path=/api-docs/patients
           filters:
               - RewritePath=/api-docs/Clynic,/v3/api-docs
+        ## For User Authentication
+        ## REST-CLIENT --> http://localhost:4004/auth/login
+        ## API GATEWAY --> http://Clynic-Auth-Service:4005/login
+        - id: auth-service-route
+          uri: http://Clynic-Auth-Service:4005
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+
