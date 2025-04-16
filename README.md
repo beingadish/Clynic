@@ -1,96 +1,71 @@
 # Clynic Service Application
 
-This is a project I developed to manage patient records. It provides a set of RESTful APIs to create, update, delete, and retrieve patient information, with proper validations and error handling.
+This project is a comprehensive microservice-based system for managing patient records and handling user authentication. It offers a RESTful API interface with robust validation, error handling, JWT-based authentication, secure gateway routing, and integration with external services like Kafka and gRPC.
 
-## Features
+---
 
-- **Patient Management APIs:**
-    - Create, update, delete and fetch patient records
-    - Email validation with unique UUID checks
-    - Update and deletion endpoints for patient data
+## 🚀 Features
 
-- **Exception Handling:**
-    - Global exception handlers for uniform error responses
-    - Custom exception handling (e.g., for duplicate emails)
+### 🧑‍⚕️ **Patient Management APIs**
+- Create, update, delete, and fetch patient records
+- Email validation with UUID checks
+- Data integrity with unique constraints
+- Integrated Kafka producer to emit patient-related events
 
-- **Database Support:**
-    - PostgreSQL deployed in Docker for production
-    - H2 local database setup with dummy data for testing
+### 🔐 **Authentication & Authorization**
+- **Auth-Service** microservice for:
+  - User registration
+  - Login with JWT token generation
+- JWT-based security with Spring Security
+- Password encryption using `BCryptPasswordEncoder`
+- Global exception handling for secure and clean error messages
 
-- **Testing & Logging:**
-    - HTTP test methods included
-    - Integrated SLF4J logging for monitoring and debugging
+### 🛡️ **API Gateway**
+- All services are routed through **API-Gateway**
+- JWT token validation at gateway level using `JWTValidationGatewayFilter`
+- Auth service is only accessible via the API Gateway
 
-- **Containerization:**
-    - Dockerfile provided to containerize the service
-    - Simplified deployment with Docker
+### 📦 **Microservices & Integration**
+- Modular architecture with clearly separated services:
+  - Clynic-Service (Patient Management)
+  - Auth-Service (Authentication)
+  - Billing-Service (via gRPC)
+  - Analytics-Service (under development)
+- gRPC integration for inter-service communication
+- Kafka event publishing for patient service operations
 
-## Getting Started
+### 🧪 **Testing & Monitoring**
+- Basic HTTP test methods available
+- Integrated SLF4J logging for debugging and monitoring
 
-### Prerequisites
+### 🛢️ **Database Support**
+- PostgreSQL for production (deployed via Docker)
+- H2 in-memory DB with dummy data for local testing
 
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/) (if needed)
-- JDK 21/21+
+### 🐳 **Containerization**
+- Dockerfile for each microservice
+- Docker Compose ready environment for spinning up services and databases
+- PostgreSQL and Auth-DB run in isolated Docker containers
 
-### Installation
+---
 
-1. **Clone the Repository:**
+## 🚀 Deployment Notes
 
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-   
-2. **Build the Project:**
+- Environment variables can be configured for DB credentials, JWT secret keys, etc.
+- Separate Docker containers for PostgreSQL and Auth-DB.
+- Kafka and gRPC integrated in service communication.
 
-    If using Gradle:
+---
 
-    ```bash
-    ./gradlew build
-    ```
-    Or if using Maven:
+## 🧠 Acknowledgments
 
-    ```bash
-    mvn clean install
-   ```
-   
-## Running the Application
+Built with ❤️ by me as a showcase of how to design and build a modern Spring Boot microservice system using:
+- Spring Security
+- JWT
+- Docker & Docker Compose
+- Kafka
+- gRPC
+- PostgreSQL
+- CI/CD (GitHub Actions)
 
-### Using Docker
-1. **Build the Docker Image:**
-
-    ```bash
-    docker build -t clynic-service .
-   ```
-
-2. **Run the Docker Container:**
-
-    ```bash
-    docker run -p 8080:8080 clynic-service
-   ```
-   
-### Running Locally
-
-1. **Start the Application:**
-
-    ```bash
-    ./gradlew bootRun
-   ```
-
-    or run the application through your IDE.
-
-### Usage
-- Access the API endpoints at:
-```http://localhost:4000/api/patients```
-
-- Refer to the inline API documentation for request/response details.
-
-### Deployment
-- The application is fully containerized using Docker.
-
-- PostgreSQL is deployed in a dedicated container, and the service is configured to connect to it.
-
-- Configure environment variables and Docker settings as needed for your production environment.
-
-### Acknowledgments
-This project was built by me as a demonstration of creating a robust, containerized microservice for patient management. Feel free to explore, use, and contribute!
+Feel free to explore, or contribute!
