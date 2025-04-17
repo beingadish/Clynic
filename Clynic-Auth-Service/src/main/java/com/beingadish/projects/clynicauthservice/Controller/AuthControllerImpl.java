@@ -5,13 +5,14 @@ import com.beingadish.projects.clynicauthservice.DTO.LoginResponseDTO;
 import com.beingadish.projects.clynicauthservice.DTO.SignupRequestDTO;
 import com.beingadish.projects.clynicauthservice.Service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 
 @RestController
+@Tag(name = "Clynic-Auth", description = "API for Clynic Auth Service") // Swagger UI Implementation
 public class AuthControllerImpl implements AuthController {
 
     private final AuthService authService;

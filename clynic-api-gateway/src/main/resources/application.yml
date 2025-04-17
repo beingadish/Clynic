@@ -20,15 +20,15 @@ spring:
             - JwtValidation
 
         ## For the API Documentation of our Project
-        ## REST-CLIENT --> http://localhost:4004/api-docs/patients
+        ## REST-CLIENT --> http://localhost:4004/api-docs/clynic
         ## API GATEWAY --> http://Clynic-Service:4000/v3/api-docs
 
         - id: api-docs-clynic-route
           uri: http://Clynic-Service:4000
           predicates:
-              - Path=/api-docs/patients
+              - Path=/api-docs/clynic
           filters:
-              - RewritePath=/api-docs/Clynic,/v3/api-docs
+              - RewritePath=/api-docs/clynic,/v3/api-docs
         ## For User Authentication
         ## REST-CLIENT --> http://localhost:4004/auth/login
         ## API GATEWAY --> http://Clynic-Auth-Service:4005/login
@@ -38,4 +38,11 @@ spring:
             - Path=/auth/**
           filters:
             - StripPrefix=1
+
+        - id: api-docs-auth-route
+          uri: http://Clynic-Auth-Service:4005
+          predicates:
+            - Path=/api-docs/auth
+          filters:
+            - RewritePath=/api-docs/auth,/v3/api-docs
 
