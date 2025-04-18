@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/clynic-api-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/Clynic-Auth-Service/pom.xml" />
         <option value="$PROJECT_DIR$/clynic-test/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/pom.xml" />
       </list>
     </option>
   </component>

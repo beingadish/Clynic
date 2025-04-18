@@ -6,12 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="clynic-api-gateway" />
-        <module name="Clynic-Auth-Service" />
         <module name="clynic-test" />
         <module name="Billing-Service" />
-        <module name="Analytics-Service" />
         <module name="Clynic-Service" />
+        <module name="infrastructure" />
+        <module name="clynic-api-gateway" />
+        <module name="Clynic-Auth-Service" />
+        <module name="Analytics-Service" />
       </profile>
     </annotationProcessing>
   </component>
