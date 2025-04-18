@@ -674,6 +674,1313 @@
      "Ref": "ClynicVPC59C07BC0"
     }
    }
+  },
+  "ClynicAuthServiceTaskTaskRole3F5C9C6C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicAuthServiceTaskA5F48FBA": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_SQL_INIT_MODE",
+        "Value": "always"
+       },
+       {
+        "Name": "JWT_SECRET",
+        "Value": "b82991438eaca31a7d19359b3a5295f69353404493e6555e438cd20036b4beab79c7406ea1853e368ffd0315db77603603ed08a2d86d196d4228f4b0267aae70ebf568a54df9f54fc48181a4559ab159ebca318258ad595f2802dff038801f6dd7208a63699d961fe1aac3f8bebf47c37b27374c524b7d14d65a4f50e35be3e27decfdcfa8176333a4959994ccfb89a01bb210939c73152dbdb6902cc596b0e285db4b962b8fcdf44d2b6f2c565e8290c9cedce16a2cc086def81e25b890edd844ec884478a2522038b55a2ed64e07cec5a065518880196e6f5ab4fc8ab14eb5121a816fe04e6378b8f07b54014188eca924d158d7606ad11380d424a067244e38d047ae5471d5f58faa8d52622a7bdbab8655e47fc8d6a756046440123cf087308c0ab01b44cea619cd0c292b53c9e14f86e7d04b088adea3c17ad2346e8c51ed609c3a2749be8a3ee450ac682ab3c5ebcb5555d86b0d2ff749f1aca5f8953b1bd1157a549079e9fae525de128ca104c50a083cf7a147549964be4234ea61b10aca24da36a082252091f85c335b497f0df6cae95b3d44901ac1a9c437710fcf244b0c3af336c163030b2591fea0bdf4b1107a98cc39e7349104ff196a3ab12f42ffb52b766561107ed5c6da22f8b2a926e446c7125e590901fb54c49da05f2c25bfa6888cdceb8d76485cf31ad538ce7cefd8d8da9b6062947361728e5ddd97"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_URL",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           "jdbc:postgres://",
+           {
+            "Fn::GetAtt": [
+             "ClynicAuthServiceDB4AC1CAB6",
+             "Endpoint.Address"
+            ]
+           },
+           ":",
+           {
+            "Fn::GetAtt": [
+             "ClynicAuthServiceDB4AC1CAB6",
+             "Endpoint.Port"
+            ]
+           },
+           "/clynic-auth-service-db"
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "SPRING_DATASOURCE_PASSWORD",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           "{{resolve:secretsmanager:",
+           {
+            "Ref": "ClynicAuthServiceDBSecretAttachment5289C2F8"
+           },
+           ":SecretString:password::}}"
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "SPRING_JPA_HIBERNATE_DDL_AUTO",
+        "Value": "update"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT",
+        "Value": "60000"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_USERNAME",
+        "Value": "admin_user"
+       },
+       {
+        "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
+       }
+      ],
+      "Essential": true,
+      "Image": "clynic-auth-service",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ClynicAuthServiceLogGroupF9612657"
+        },
+        "awslogs-stream-prefix": "clynic-auth-service",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "clynic-auth-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4005,
+        "HostPort": 4005,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicAuthServiceTaskExecutionRoleF99EF657",
+      "Arn"
+     ]
+    },
+    "Family": "localstackClynicAuthServiceTaskFD4DB3C9",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicAuthServiceTaskTaskRole3F5C9C6C",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "ClynicAuthServiceTaskExecutionRoleF99EF657": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicAuthServiceTaskExecutionRoleDefaultPolicyCD97A617": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ClynicAuthServiceLogGroupF9612657",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClynicAuthServiceTaskExecutionRoleDefaultPolicyCD97A617",
+    "Roles": [
+     {
+      "Ref": "ClynicAuthServiceTaskExecutionRoleF99EF657"
+     }
+    ]
+   }
+  },
+  "ClynicAuthServiceLogGroupF9612657": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/clynic-auth-service",
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicAuthService8C0FFB8B": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClynicServiceCluster09D4548A"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ClynicAuthServiceSecurityGroupBCF1636F",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+       },
+       {
+        "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+       }
+      ]
+     }
+    },
+    "ServiceName": "clynic-auth-service",
+    "TaskDefinition": {
+     "Ref": "ClynicAuthServiceTaskA5F48FBA"
+    }
+   },
+   "DependsOn": [
+    "ClynicAuthServiceDB4AC1CAB6",
+    "ClynicAuthServiceDBSecretAttachment5289C2F8",
+    "localstackClynicAuthServiceDBSecret784B5DAA3fdaad7efa858a3daf9490cf0a702aeb",
+    "ClynicAuthServiceDBSecurityGroup67D7B1FE",
+    "ClynicAuthServiceDBSubnetGroup851FC598",
+    "ClynicAuthServiceDBHealthCheck",
+    "ClynicAuthServiceTaskTaskRole3F5C9C6C"
+   ]
+  },
+  "ClynicAuthServiceSecurityGroupBCF1636F": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "localstack/ClynicAuthService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   },
+   "DependsOn": [
+    "ClynicAuthServiceDB4AC1CAB6",
+    "ClynicAuthServiceDBSecretAttachment5289C2F8",
+    "localstackClynicAuthServiceDBSecret784B5DAA3fdaad7efa858a3daf9490cf0a702aeb",
+    "ClynicAuthServiceDBSecurityGroup67D7B1FE",
+    "ClynicAuthServiceDBSubnetGroup851FC598",
+    "ClynicAuthServiceDBHealthCheck",
+    "ClynicAuthServiceTaskTaskRole3F5C9C6C"
+   ]
+  },
+  "ClynicBillingServiceTaskTaskRoleCDDF1ACD": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicBillingServiceTaskB7AA1677": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
+       }
+      ],
+      "Essential": true,
+      "Image": "clynic-billing-service",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ClynicBillingServiceLogGroup0780D29E"
+        },
+        "awslogs-stream-prefix": "clynic-billing-service",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "clynic-billing-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4001,
+        "HostPort": 4001,
+        "Protocol": "tcp"
+       },
+       {
+        "ContainerPort": 9001,
+        "HostPort": 9001,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicBillingServiceTaskExecutionRoleE6B119D6",
+      "Arn"
+     ]
+    },
+    "Family": "localstackClynicBillingServiceTask776FC57D",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicBillingServiceTaskTaskRoleCDDF1ACD",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "ClynicBillingServiceTaskExecutionRoleE6B119D6": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicBillingServiceTaskExecutionRoleDefaultPolicy82686E24": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ClynicBillingServiceLogGroup0780D29E",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClynicBillingServiceTaskExecutionRoleDefaultPolicy82686E24",
+    "Roles": [
+     {
+      "Ref": "ClynicBillingServiceTaskExecutionRoleE6B119D6"
+     }
+    ]
+   }
+  },
+  "ClynicBillingServiceLogGroup0780D29E": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/clynic-billing-service",
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicBillingService01B19077": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClynicServiceCluster09D4548A"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ClynicBillingServiceSecurityGroup3848ABD8",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+       },
+       {
+        "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+       }
+      ]
+     }
+    },
+    "ServiceName": "clynic-billing-service",
+    "TaskDefinition": {
+     "Ref": "ClynicBillingServiceTaskB7AA1677"
+    }
+   },
+   "DependsOn": [
+    "ClynicBillingServiceTaskTaskRoleCDDF1ACD"
+   ]
+  },
+  "ClynicBillingServiceSecurityGroup3848ABD8": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "localstack/ClynicBillingService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   },
+   "DependsOn": [
+    "ClynicBillingServiceTaskTaskRoleCDDF1ACD"
+   ]
+  },
+  "ClynicAnalyticsServiceTaskTaskRole8EC3DBEE": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicAnalyticsServiceTask335B816B": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
+       }
+      ],
+      "Essential": true,
+      "Image": "clynic-analytics-service",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ClynicAnalyticsServiceLogGroup7D566D75"
+        },
+        "awslogs-stream-prefix": "clynic-analytics-service",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "clynic-analytics-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4002,
+        "HostPort": 4002,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicAnalyticsServiceTaskExecutionRole1D78FB2D",
+      "Arn"
+     ]
+    },
+    "Family": "localstackClynicAnalyticsServiceTaskACBAD417",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicAnalyticsServiceTaskTaskRole8EC3DBEE",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "ClynicAnalyticsServiceTaskExecutionRole1D78FB2D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicAnalyticsServiceTaskExecutionRoleDefaultPolicyAFF4BA84": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ClynicAnalyticsServiceLogGroup7D566D75",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClynicAnalyticsServiceTaskExecutionRoleDefaultPolicyAFF4BA84",
+    "Roles": [
+     {
+      "Ref": "ClynicAnalyticsServiceTaskExecutionRole1D78FB2D"
+     }
+    ]
+   }
+  },
+  "ClynicAnalyticsServiceLogGroup7D566D75": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/clynic-analytics-service",
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicAnalyticsServiceCA8704B3": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClynicServiceCluster09D4548A"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ClynicAnalyticsServiceSecurityGroup65CB6F66",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+       },
+       {
+        "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+       }
+      ]
+     }
+    },
+    "ServiceName": "clynic-analytics-service",
+    "TaskDefinition": {
+     "Ref": "ClynicAnalyticsServiceTask335B816B"
+    }
+   },
+   "DependsOn": [
+    "ClynicAnalyticsServiceTaskTaskRole8EC3DBEE",
+    "MskCluster"
+   ]
+  },
+  "ClynicAnalyticsServiceSecurityGroup65CB6F66": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "localstack/ClynicAnalyticsService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   },
+   "DependsOn": [
+    "ClynicAnalyticsServiceTaskTaskRole8EC3DBEE",
+    "MskCluster"
+   ]
+  },
+  "ClynicServiceTaskTaskRole56AF335B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicServiceTask40AB5293": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "BILLING_SERVICE_GRPC_PORT",
+        "Value": "9001"
+       },
+       {
+        "Name": "SPRING_SQL_INIT_MODE",
+        "Value": "always"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_URL",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           "jdbc:postgres://",
+           {
+            "Fn::GetAtt": [
+             "ClynicServiceDBC472171E",
+             "Endpoint.Address"
+            ]
+           },
+           ":",
+           {
+            "Fn::GetAtt": [
+             "ClynicServiceDBC472171E",
+             "Endpoint.Port"
+            ]
+           },
+           "/clynic-service-db"
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "SPRING_DATASOURCE_PASSWORD",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           "{{resolve:secretsmanager:",
+           {
+            "Ref": "ClynicServiceDBSecretAttachment0734FD68"
+           },
+           ":SecretString:password::}}"
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "SPRING_JPA_HIBERNATE_DDL_AUTO",
+        "Value": "update"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT",
+        "Value": "60000"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_USERNAME",
+        "Value": "admin_user"
+       },
+       {
+        "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
+       },
+       {
+        "Name": "BILLING_SERVICE_ADDRESS",
+        "Value": "host.docker.internal"
+       }
+      ],
+      "Essential": true,
+      "Image": "clynic-service",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ClynicServiceLogGroup352C2E67"
+        },
+        "awslogs-stream-prefix": "clynic-service",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "clynic-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4000,
+        "HostPort": 4000,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicServiceTaskExecutionRole553F8E7A",
+      "Arn"
+     ]
+    },
+    "Family": "localstackClynicServiceTaskA2B2CEC7",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "ClynicServiceTaskTaskRole56AF335B",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "ClynicServiceTaskExecutionRole553F8E7A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ClynicServiceTaskExecutionRoleDefaultPolicy19DC38F2": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ClynicServiceLogGroup352C2E67",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClynicServiceTaskExecutionRoleDefaultPolicy19DC38F2",
+    "Roles": [
+     {
+      "Ref": "ClynicServiceTaskExecutionRole553F8E7A"
+     }
+    ]
+   }
+  },
+  "ClynicServiceLogGroup352C2E67": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/clynic-service",
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicService16D85825": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClynicServiceCluster09D4548A"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ClynicServiceSecurityGroup64A38553",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+       },
+       {
+        "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+       }
+      ]
+     }
+    },
+    "ServiceName": "clynic-service",
+    "TaskDefinition": {
+     "Ref": "ClynicServiceTask40AB5293"
+    }
+   },
+   "DependsOn": [
+    "ClynicBillingServiceSecurityGroup3848ABD8",
+    "ClynicBillingService01B19077",
+    "ClynicServiceDBC472171E",
+    "ClynicServiceDBSecretAttachment0734FD68",
+    "localstackClynicServiceDBSecret21484A363fdaad7efa858a3daf9490cf0a702aeb",
+    "ClynicServiceDBSecurityGroup14AA4CF5",
+    "ClynicServiceDBSubnetGroup0A9C117F",
+    "ClynicServiceDBHealthCheck",
+    "ClynicServiceTaskTaskRole56AF335B",
+    "MskCluster"
+   ]
+  },
+  "ClynicServiceSecurityGroup64A38553": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "localstack/ClynicService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   },
+   "DependsOn": [
+    "ClynicBillingServiceSecurityGroup3848ABD8",
+    "ClynicBillingService01B19077",
+    "ClynicServiceDBC472171E",
+    "ClynicServiceDBSecretAttachment0734FD68",
+    "localstackClynicServiceDBSecret21484A363fdaad7efa858a3daf9490cf0a702aeb",
+    "ClynicServiceDBSecurityGroup14AA4CF5",
+    "ClynicServiceDBSubnetGroup0A9C117F",
+    "ClynicServiceDBHealthCheck",
+    "ClynicServiceTaskTaskRole56AF335B",
+    "MskCluster"
+   ]
+  },
+  "APIGatewayTaskDefinitionTaskRole894A199F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "APIGatewayTaskDefinition199BB1B7": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "AUTH_SERVICE_URL",
+        "Value": "http://host.docker.internal:4005"
+       },
+       {
+        "Name": "SPRING_PROFILES_ACTIVE",
+        "Value": "prod"
+       }
+      ],
+      "Essential": true,
+      "Image": "api-gateway",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "APIGatewayLogGroupCDBB0658"
+        },
+        "awslogs-stream-prefix": "api-gateway",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "APIGatewayContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4004,
+        "HostPort": 4004,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "APIGatewayTaskDefinitionExecutionRole555CBA21",
+      "Arn"
+     ]
+    },
+    "Family": "localstackAPIGatewayTaskDefinitionF109B4B7",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "APIGatewayTaskDefinitionTaskRole894A199F",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "APIGatewayTaskDefinitionExecutionRole555CBA21": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "APIGatewayTaskDefinitionExecutionRoleDefaultPolicy582C1C35": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "APIGatewayLogGroupCDBB0658",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "APIGatewayTaskDefinitionExecutionRoleDefaultPolicy582C1C35",
+    "Roles": [
+     {
+      "Ref": "APIGatewayTaskDefinitionExecutionRole555CBA21"
+     }
+    ]
+   }
+  },
+  "APIGatewayLogGroupCDBB0658": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/api-gateway",
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "APIGatewayServiceLBDA2B7609": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "APIGatewayServiceLBSecurityGroup8524BFD1",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "ClynicVPCPublicSubnet1SubnetB6FCDF2D"
+     },
+     {
+      "Ref": "ClynicVPCPublicSubnet2Subnet78C3FE18"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "ClynicVPCPublicSubnet1DefaultRouteA2DADBF6",
+    "ClynicVPCPublicSubnet1RouteTableAssociationB121591F",
+    "ClynicVPCPublicSubnet2DefaultRouteBCF326A3",
+    "ClynicVPCPublicSubnet2RouteTableAssociation57C9C32D"
+   ]
+  },
+  "APIGatewayServiceLBSecurityGroup8524BFD1": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Automatically created Security Group for ELB localstackAPIGatewayServiceLB0192615A",
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 80",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "APIGatewayServiceLBSecurityGrouptolocalstackAPIGatewayServiceSecurityGroup37054EEE4004CAF8FB32": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceSecurityGroup98F3B93B",
+      "GroupId"
+     ]
+    },
+    "FromPort": 4004,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceLBSecurityGroup8524BFD1",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": 4004
+   }
+  },
+  "APIGatewayServiceLBPublicListenerD6FA7F47": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "APIGatewayServiceLBDA2B7609"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   }
+  },
+  "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "APIGatewayServiceA5206149": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClynicServiceCluster09D4548A"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "APIGatewayContainer",
+      "ContainerPort": 4004,
+      "TargetGroupArn": {
+       "Ref": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "APIGatewayServiceSecurityGroup98F3B93B",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+       },
+       {
+        "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+       }
+      ]
+     }
+    },
+    "ServiceName": "api-gateway",
+    "TaskDefinition": {
+     "Ref": "APIGatewayTaskDefinition199BB1B7"
+    }
+   },
+   "DependsOn": [
+    "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70",
+    "APIGatewayServiceLBPublicListenerD6FA7F47",
+    "APIGatewayTaskDefinitionTaskRole894A199F"
+   ]
+  },
+  "APIGatewayServiceSecurityGroup98F3B93B": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "localstack/APIGatewayService/Service/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   },
+   "DependsOn": [
+    "APIGatewayTaskDefinitionTaskRole894A199F"
+   ]
+  },
+  "APIGatewayServiceSecurityGroupfromlocalstackAPIGatewayServiceLBSecurityGroup32B4CA424004CA85E4CD": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 4004,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceSecurityGroup98F3B93B",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceLBSecurityGroup8524BFD1",
+      "GroupId"
+     ]
+    },
+    "ToPort": 4004
+   },
+   "DependsOn": [
+    "APIGatewayTaskDefinitionTaskRole894A199F"
+   ]
+  }
+ },
+ "Outputs": {
+  "APIGatewayServiceLoadBalancerDNS7C7318A3": {
+   "Value": {
+    "Fn::GetAtt": [
+     "APIGatewayServiceLBDA2B7609",
+     "DNSName"
+    ]
+   }
+  },
+  "APIGatewayServiceServiceURL95056890": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "APIGatewayServiceLBDA2B7609",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   }
   }
  }
 }

@@ -240,6 +240,264 @@
             "type": "aws:cdk:logicalId",
             "data": "ClynicServiceClusterDefaultServiceDiscoveryNamespaceB97B0A1F"
           }
+        ],
+        "/localstack/ClynicAuthServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceTaskTaskRole3F5C9C6C"
+          }
+        ],
+        "/localstack/ClynicAuthServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceTaskA5F48FBA"
+          }
+        ],
+        "/localstack/ClynicAuthServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceTaskExecutionRoleF99EF657"
+          }
+        ],
+        "/localstack/ClynicAuthServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceTaskExecutionRoleDefaultPolicyCD97A617"
+          }
+        ],
+        "/localstack/ClynicAuthServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceLogGroupF9612657"
+          }
+        ],
+        "/localstack/ClynicAuthService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthService8C0FFB8B"
+          }
+        ],
+        "/localstack/ClynicAuthService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceSecurityGroupBCF1636F"
+          }
+        ],
+        "/localstack/ClynicBillingServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicBillingServiceTaskTaskRoleCDDF1ACD"
+          }
+        ],
+        "/localstack/ClynicBillingServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicBillingServiceTaskB7AA1677"
+          }
+        ],
+        "/localstack/ClynicBillingServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicBillingServiceTaskExecutionRoleE6B119D6"
+          }
+        ],
+        "/localstack/ClynicBillingServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicBillingServiceTaskExecutionRoleDefaultPolicy82686E24"
+          }
+        ],
+        "/localstack/ClynicBillingServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicBillingServiceLogGroup0780D29E"
+          }
+        ],
+        "/localstack/ClynicBillingService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicBillingService01B19077"
+          }
+        ],
+        "/localstack/ClynicBillingService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicBillingServiceSecurityGroup3848ABD8"
+          }
+        ],
+        "/localstack/ClynicAnalyticsServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAnalyticsServiceTaskTaskRole8EC3DBEE"
+          }
+        ],
+        "/localstack/ClynicAnalyticsServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAnalyticsServiceTask335B816B"
+          }
+        ],
+        "/localstack/ClynicAnalyticsServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAnalyticsServiceTaskExecutionRole1D78FB2D"
+          }
+        ],
+        "/localstack/ClynicAnalyticsServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAnalyticsServiceTaskExecutionRoleDefaultPolicyAFF4BA84"
+          }
+        ],
+        "/localstack/ClynicAnalyticsServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAnalyticsServiceLogGroup7D566D75"
+          }
+        ],
+        "/localstack/ClynicAnalyticsService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAnalyticsServiceCA8704B3"
+          }
+        ],
+        "/localstack/ClynicAnalyticsService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAnalyticsServiceSecurityGroup65CB6F66"
+          }
+        ],
+        "/localstack/ClynicServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceTaskTaskRole56AF335B"
+          }
+        ],
+        "/localstack/ClynicServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceTask40AB5293"
+          }
+        ],
+        "/localstack/ClynicServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceTaskExecutionRole553F8E7A"
+          }
+        ],
+        "/localstack/ClynicServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceTaskExecutionRoleDefaultPolicy19DC38F2"
+          }
+        ],
+        "/localstack/ClynicServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceLogGroup352C2E67"
+          }
+        ],
+        "/localstack/ClynicService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicService16D85825"
+          }
+        ],
+        "/localstack/ClynicService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceSecurityGroup64A38553"
+          }
+        ],
+        "/localstack/APIGatewayTaskDefinition/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinitionTaskRole894A199F"
+          }
+        ],
+        "/localstack/APIGatewayTaskDefinition/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinition199BB1B7"
+          }
+        ],
+        "/localstack/APIGatewayTaskDefinition/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinitionExecutionRole555CBA21"
+          }
+        ],
+        "/localstack/APIGatewayTaskDefinition/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinitionExecutionRoleDefaultPolicy582C1C35"
+          }
+        ],
+        "/localstack/APIGatewayLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayLogGroupCDBB0658"
+          }
+        ],
+        "/localstack/APIGatewayService/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBDA2B7609"
+          }
+        ],
+        "/localstack/APIGatewayService/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBSecurityGroup8524BFD1"
+          }
+        ],
+        "/localstack/APIGatewayService/LB/SecurityGroup/to localstackAPIGatewayServiceSecurityGroup37054EEE:4004": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBSecurityGrouptolocalstackAPIGatewayServiceSecurityGroup37054EEE4004CAF8FB32"
+          }
+        ],
+        "/localstack/APIGatewayService/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBPublicListenerD6FA7F47"
+          }
+        ],
+        "/localstack/APIGatewayService/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
+          }
+        ],
+        "/localstack/APIGatewayService/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLoadBalancerDNS7C7318A3"
+          }
+        ],
+        "/localstack/APIGatewayService/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceServiceURL95056890"
+          }
+        ],
+        "/localstack/APIGatewayService/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceA5206149"
+          }
+        ],
+        "/localstack/APIGatewayService/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceSecurityGroup98F3B93B"
+          }
+        ],
+        "/localstack/APIGatewayService/Service/SecurityGroup/from localstackAPIGatewayServiceLBSecurityGroup32B4CA42:4004": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceSecurityGroupfromlocalstackAPIGatewayServiceLBSecurityGroup32B4CA424004CA85E4CD"
+          }
         ]
       },
       "displayName": "localstack"
