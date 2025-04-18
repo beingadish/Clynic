@@ -12,6 +12,236 @@
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}"
       },
+      "metadata": {
+        "/localstack/ClynicVPC/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPC59C07BC0"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet1SubnetB6FCDF2D"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet1RouteTable9C640139"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet1RouteTableAssociationB121591F"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet1DefaultRouteA2DADBF6"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet1EIP86EF5147"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet1NATGateway878068EA"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet2Subnet78C3FE18"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet2RouteTableDE45350E"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet2RouteTableAssociation57C9C32D"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet2DefaultRouteBCF326A3"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet2EIPE01C4B46"
+          }
+        ],
+        "/localstack/ClynicVPC/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPublicSubnet2NATGateway4BCE9852"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet1Subnet15B26298"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet1RouteTableF15BE04D"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet1RouteTableAssociation8B87D9E4"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet1DefaultRouteC871089F"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet2RouteTableF6C39631"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet2RouteTableAssociationD95FF5BF"
+          }
+        ],
+        "/localstack/ClynicVPC/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCPrivateSubnet2DefaultRoute584F4602"
+          }
+        ],
+        "/localstack/ClynicVPC/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCIGW3C687119"
+          }
+        ],
+        "/localstack/ClynicVPC/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicVPCVPCGW20816574"
+          }
+        ],
+        "/localstack/ClynicAuthServiceDB/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceDBSubnetGroup851FC598"
+          }
+        ],
+        "/localstack/ClynicAuthServiceDB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceDBSecurityGroup67D7B1FE"
+          }
+        ],
+        "/localstack/ClynicAuthServiceDB/Secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "localstackClynicAuthServiceDBSecret784B5DAA3fdaad7efa858a3daf9490cf0a702aeb"
+          }
+        ],
+        "/localstack/ClynicAuthServiceDB/Secret/Attachment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceDBSecretAttachment5289C2F8"
+          }
+        ],
+        "/localstack/ClynicAuthServiceDB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceDB4AC1CAB6"
+          }
+        ],
+        "/localstack/ClynicServiceDB/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceDBSubnetGroup0A9C117F"
+          }
+        ],
+        "/localstack/ClynicServiceDB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceDBSecurityGroup14AA4CF5"
+          }
+        ],
+        "/localstack/ClynicServiceDB/Secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "localstackClynicServiceDBSecret21484A363fdaad7efa858a3daf9490cf0a702aeb"
+          }
+        ],
+        "/localstack/ClynicServiceDB/Secret/Attachment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceDBSecretAttachment0734FD68"
+          }
+        ],
+        "/localstack/ClynicServiceDB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceDBC472171E"
+          }
+        ],
+        "/localstack/ClynicAuthServiceDBHealthCheck": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicAuthServiceDBHealthCheck"
+          }
+        ],
+        "/localstack/ClynicServiceDBHealthCheck": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceDBHealthCheck"
+          }
+        ],
+        "/localstack/MskCluster": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MskCluster"
+          }
+        ],
+        "/localstack/ClynicServiceCluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceCluster09D4548A"
+          }
+        ],
+        "/localstack/ClynicServiceCluster/DefaultServiceDiscoveryNamespace/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClynicServiceClusterDefaultServiceDiscoveryNamespaceB97B0A1F"
+          }
+        ]
+      },
       "displayName": "localstack"
     },
     "Tree": {

@@ -1,1 +1,679 @@
-{}
+{
+ "Resources": {
+  "ClynicVPC59C07BC0": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ClynicVPC"
+     }
+    ]
+   }
+  },
+  "ClynicVPCPublicSubnet1SubnetB6FCDF2D": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPublicSubnet1RouteTable9C640139": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPublicSubnet1RouteTableAssociationB121591F": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ClynicVPCPublicSubnet1RouteTable9C640139"
+    },
+    "SubnetId": {
+     "Ref": "ClynicVPCPublicSubnet1SubnetB6FCDF2D"
+    }
+   }
+  },
+  "ClynicVPCPublicSubnet1DefaultRouteA2DADBF6": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "ClynicVPCIGW3C687119"
+    },
+    "RouteTableId": {
+     "Ref": "ClynicVPCPublicSubnet1RouteTable9C640139"
+    }
+   },
+   "DependsOn": [
+    "ClynicVPCVPCGW20816574"
+   ]
+  },
+  "ClynicVPCPublicSubnet1EIP86EF5147": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet1"
+     }
+    ]
+   }
+  },
+  "ClynicVPCPublicSubnet1NATGateway878068EA": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "ClynicVPCPublicSubnet1EIP86EF5147",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "ClynicVPCPublicSubnet1SubnetB6FCDF2D"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "ClynicVPCPublicSubnet1DefaultRouteA2DADBF6",
+    "ClynicVPCPublicSubnet1RouteTableAssociationB121591F"
+   ]
+  },
+  "ClynicVPCPublicSubnet2Subnet78C3FE18": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPublicSubnet2RouteTableDE45350E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPublicSubnet2RouteTableAssociation57C9C32D": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ClynicVPCPublicSubnet2RouteTableDE45350E"
+    },
+    "SubnetId": {
+     "Ref": "ClynicVPCPublicSubnet2Subnet78C3FE18"
+    }
+   }
+  },
+  "ClynicVPCPublicSubnet2DefaultRouteBCF326A3": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "ClynicVPCIGW3C687119"
+    },
+    "RouteTableId": {
+     "Ref": "ClynicVPCPublicSubnet2RouteTableDE45350E"
+    }
+   },
+   "DependsOn": [
+    "ClynicVPCVPCGW20816574"
+   ]
+  },
+  "ClynicVPCPublicSubnet2EIPE01C4B46": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet2"
+     }
+    ]
+   }
+  },
+  "ClynicVPCPublicSubnet2NATGateway4BCE9852": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "ClynicVPCPublicSubnet2EIPE01C4B46",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "ClynicVPCPublicSubnet2Subnet78C3FE18"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PublicSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "ClynicVPCPublicSubnet2DefaultRouteBCF326A3",
+    "ClynicVPCPublicSubnet2RouteTableAssociation57C9C32D"
+   ]
+  },
+  "ClynicVPCPrivateSubnet1Subnet15B26298": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPrivateSubnet1RouteTableF15BE04D": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPrivateSubnet1RouteTableAssociation8B87D9E4": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ClynicVPCPrivateSubnet1RouteTableF15BE04D"
+    },
+    "SubnetId": {
+     "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+    }
+   }
+  },
+  "ClynicVPCPrivateSubnet1DefaultRouteC871089F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "ClynicVPCPublicSubnet1NATGateway878068EA"
+    },
+    "RouteTableId": {
+     "Ref": "ClynicVPCPrivateSubnet1RouteTableF15BE04D"
+    }
+   }
+  },
+  "ClynicVPCPrivateSubnet2SubnetE10A628E": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPrivateSubnet2RouteTableF6C39631": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "localstack/ClynicVPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicVPCPrivateSubnet2RouteTableAssociationD95FF5BF": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ClynicVPCPrivateSubnet2RouteTableF6C39631"
+    },
+    "SubnetId": {
+     "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+    }
+   }
+  },
+  "ClynicVPCPrivateSubnet2DefaultRoute584F4602": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "ClynicVPCPublicSubnet2NATGateway4BCE9852"
+    },
+    "RouteTableId": {
+     "Ref": "ClynicVPCPrivateSubnet2RouteTableF6C39631"
+    }
+   }
+  },
+  "ClynicVPCIGW3C687119": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ClynicVPC"
+     }
+    ]
+   }
+  },
+  "ClynicVPCVPCGW20816574": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "ClynicVPCIGW3C687119"
+    },
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "ClynicAuthServiceDBSubnetGroup851FC598": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for ClynicAuthServiceDB database",
+    "SubnetIds": [
+     {
+      "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+     },
+     {
+      "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+     }
+    ]
+   }
+  },
+  "ClynicAuthServiceDBSecurityGroup67D7B1FE": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for ClynicAuthServiceDB database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "localstackClynicAuthServiceDBSecret784B5DAA3fdaad7efa858a3daf9490cf0a702aeb": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Generated by the CDK for stack: ",
+       {
+        "Ref": "AWS::StackName"
+       }
+      ]
+     ]
+    },
+    "GenerateSecretString": {
+     "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 30,
+     "SecretStringTemplate": "{\"username\":\"admin_user\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicAuthServiceDBSecretAttachment5289C2F8": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "localstackClynicAuthServiceDBSecret784B5DAA3fdaad7efa858a3daf9490cf0a702aeb"
+    },
+    "TargetId": {
+     "Ref": "ClynicAuthServiceDB4AC1CAB6"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   }
+  },
+  "ClynicAuthServiceDB4AC1CAB6": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t2.micro",
+    "DBName": "clynic-auth-service-db",
+    "DBSubnetGroupName": {
+     "Ref": "ClynicAuthServiceDBSubnetGroup851FC598"
+    },
+    "Engine": "postgres",
+    "EngineVersion": "16.2",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "localstackClynicAuthServiceDBSecret784B5DAA3fdaad7efa858a3daf9490cf0a702aeb"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": "admin_user",
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "ClynicAuthServiceDBSecurityGroup67D7B1FE",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicServiceDBSubnetGroup0A9C117F": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for ClynicServiceDB database",
+    "SubnetIds": [
+     {
+      "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+     },
+     {
+      "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+     }
+    ]
+   }
+  },
+  "ClynicServiceDBSecurityGroup14AA4CF5": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for ClynicServiceDB database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  },
+  "localstackClynicServiceDBSecret21484A363fdaad7efa858a3daf9490cf0a702aeb": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Generated by the CDK for stack: ",
+       {
+        "Ref": "AWS::StackName"
+       }
+      ]
+     ]
+    },
+    "GenerateSecretString": {
+     "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 30,
+     "SecretStringTemplate": "{\"username\":\"admin_user\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicServiceDBSecretAttachment0734FD68": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "localstackClynicServiceDBSecret21484A363fdaad7efa858a3daf9490cf0a702aeb"
+    },
+    "TargetId": {
+     "Ref": "ClynicServiceDBC472171E"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   }
+  },
+  "ClynicServiceDBC472171E": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t2.micro",
+    "DBName": "clynic-service-db",
+    "DBSubnetGroupName": {
+     "Ref": "ClynicServiceDBSubnetGroup0A9C117F"
+    },
+    "Engine": "postgres",
+    "EngineVersion": "16.2",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "localstackClynicServiceDBSecret21484A363fdaad7efa858a3daf9490cf0a702aeb"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": "admin_user",
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "ClynicServiceDBSecurityGroup14AA4CF5",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ClynicAuthServiceDBHealthCheck": {
+   "Type": "AWS::Route53::HealthCheck",
+   "Properties": {
+    "HealthCheckConfig": {
+     "FailureThreshold": 3,
+     "IPAddress": {
+      "Fn::GetAtt": [
+       "ClynicAuthServiceDB4AC1CAB6",
+       "Endpoint.Address"
+      ]
+     },
+     "Port": {
+      "Fn::GetAtt": [
+       "ClynicAuthServiceDB4AC1CAB6",
+       "Endpoint.Port"
+      ]
+     },
+     "RequestInterval": 30,
+     "Type": "TCP"
+    }
+   }
+  },
+  "ClynicServiceDBHealthCheck": {
+   "Type": "AWS::Route53::HealthCheck",
+   "Properties": {
+    "HealthCheckConfig": {
+     "FailureThreshold": 3,
+     "IPAddress": {
+      "Fn::GetAtt": [
+       "ClynicServiceDBC472171E",
+       "Endpoint.Address"
+      ]
+     },
+     "Port": {
+      "Fn::GetAtt": [
+       "ClynicServiceDBC472171E",
+       "Endpoint.Port"
+      ]
+     },
+     "RequestInterval": 30,
+     "Type": "TCP"
+    }
+   }
+  },
+  "MskCluster": {
+   "Type": "AWS::MSK::Cluster",
+   "Properties": {
+    "BrokerNodeGroupInfo": {
+     "BrokerAZDistribution": "DEFAULT",
+     "ClientSubnets": [
+      {
+       "Ref": "ClynicVPCPrivateSubnet1Subnet15B26298"
+      },
+      {
+       "Ref": "ClynicVPCPrivateSubnet2SubnetE10A628E"
+      }
+     ],
+     "InstanceType": "kafka.m5.xlarge"
+    },
+    "ClusterName": "kafka-cluster",
+    "KafkaVersion": "2.8.0",
+    "NumberOfBrokerNodes": 1
+   }
+  },
+  "ClynicServiceCluster09D4548A": {
+   "Type": "AWS::ECS::Cluster"
+  },
+  "ClynicServiceClusterDefaultServiceDiscoveryNamespaceB97B0A1F": {
+   "Type": "AWS::ServiceDiscovery::PrivateDnsNamespace",
+   "Properties": {
+    "Name": "clynic-service.local",
+    "Vpc": {
+     "Ref": "ClynicVPC59C07BC0"
+    }
+   }
+  }
+ }
+}
