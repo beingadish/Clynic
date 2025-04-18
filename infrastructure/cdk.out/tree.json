@@ -1111,7 +1111,7 @@
                 },
                 "clusterName": "kafka-cluster",
                 "kafkaVersion": "2.8.0",
-                "numberOfBrokerNodes": 1
+                "numberOfBrokerNodes": 2
               }
             },
             "constructInfo": {
@@ -1260,7 +1260,7 @@
                               "Fn::Join": [
                                 "",
                                 [
-                                  "jdbc:postgres://",
+                                  "jdbc:postgresql://",
                                   {
                                     "Fn::GetAtt": [
                                       "ClynicAuthServiceDB4AC1CAB6",
@@ -1620,8 +1620,8 @@
                     "containerDefinitions": [
                       {
                         "essential": true,
-                        "image": "clynic-billing-service",
-                        "name": "clynic-billing-serviceContainer",
+                        "image": "billing-service",
+                        "name": "billing-serviceContainer",
                         "portMappings": [
                           {
                             "containerPort": 4001,
@@ -1640,7 +1640,7 @@
                             "awslogs-group": {
                               "Ref": "ClynicBillingServiceLogGroup0780D29E"
                             },
-                            "awslogs-stream-prefix": "clynic-billing-service",
+                            "awslogs-stream-prefix": "billing-service",
                             "awslogs-region": {
                               "Ref": "AWS::Region"
                             }
@@ -1680,9 +1680,9 @@
                   "version": "2.162.1"
                 }
               },
-              "clynic-billing-serviceContainer": {
-                "id": "clynic-billing-serviceContainer",
-                "path": "localstack/ClynicBillingServiceTask/clynic-billing-serviceContainer",
+              "billing-serviceContainer": {
+                "id": "billing-serviceContainer",
+                "path": "localstack/ClynicBillingServiceTask/billing-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.162.1"
@@ -1794,7 +1794,7 @@
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
-                    "logGroupName": "/ecs/clynic-billing-service",
+                    "logGroupName": "/ecs/billing-service",
                     "retentionInDays": 1
                   }
                 },
@@ -1854,7 +1854,7 @@
                         ]
                       }
                     },
-                    "serviceName": "clynic-billing-service",
+                    "serviceName": "billing-service",
                     "taskDefinition": {
                       "Ref": "ClynicBillingServiceTaskB7AA1677"
                     }
@@ -1961,8 +1961,8 @@
                     "containerDefinitions": [
                       {
                         "essential": true,
-                        "image": "clynic-analytics-service",
-                        "name": "clynic-analytics-serviceContainer",
+                        "image": "analytics-service",
+                        "name": "analytics-serviceContainer",
                         "portMappings": [
                           {
                             "containerPort": 4002,
@@ -1976,7 +1976,7 @@
                             "awslogs-group": {
                               "Ref": "ClynicAnalyticsServiceLogGroup7D566D75"
                             },
-                            "awslogs-stream-prefix": "clynic-analytics-service",
+                            "awslogs-stream-prefix": "analytics-service",
                             "awslogs-region": {
                               "Ref": "AWS::Region"
                             }
@@ -2016,9 +2016,9 @@
                   "version": "2.162.1"
                 }
               },
-              "clynic-analytics-serviceContainer": {
-                "id": "clynic-analytics-serviceContainer",
-                "path": "localstack/ClynicAnalyticsServiceTask/clynic-analytics-serviceContainer",
+              "analytics-serviceContainer": {
+                "id": "analytics-serviceContainer",
+                "path": "localstack/ClynicAnalyticsServiceTask/analytics-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.162.1"
@@ -2130,7 +2130,7 @@
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
-                    "logGroupName": "/ecs/clynic-analytics-service",
+                    "logGroupName": "/ecs/analytics-service",
                     "retentionInDays": 1
                   }
                 },
@@ -2190,7 +2190,7 @@
                         ]
                       }
                     },
-                    "serviceName": "clynic-analytics-service",
+                    "serviceName": "analytics-service",
                     "taskDefinition": {
                       "Ref": "ClynicAnalyticsServiceTask335B816B"
                     }
@@ -2333,7 +2333,7 @@
                               "Fn::Join": [
                                 "",
                                 [
-                                  "jdbc:postgres://",
+                                  "jdbc:postgresql://",
                                   {
                                     "Fn::GetAtt": [
                                       "ClynicServiceDBC472171E",
@@ -2697,7 +2697,7 @@
                     "containerDefinitions": [
                       {
                         "essential": true,
-                        "image": "api-gateway",
+                        "image": "clynic-api-gateway",
                         "name": "APIGatewayContainer",
                         "portMappings": [
                           {
@@ -2712,7 +2712,7 @@
                             "awslogs-group": {
                               "Ref": "APIGatewayLogGroupCDBB0658"
                             },
-                            "awslogs-stream-prefix": "api-gateway",
+                            "awslogs-stream-prefix": "clynic-api-gateway",
                             "awslogs-region": {
                               "Ref": "AWS::Region"
                             }
@@ -2870,7 +2870,7 @@
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
-                    "logGroupName": "/ecs/api-gateway",
+                    "logGroupName": "/ecs/clynic-api-gateway",
                     "retentionInDays": 1
                   }
                 },
@@ -3144,7 +3144,7 @@
                             ]
                           }
                         },
-                        "serviceName": "api-gateway",
+                        "serviceName": "clynic-api-gateway",
                         "taskDefinition": {
                           "Ref": "APIGatewayTaskDefinition199BB1B7"
                         }

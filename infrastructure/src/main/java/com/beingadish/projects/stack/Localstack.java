@@ -71,7 +71,7 @@ public class Localstack extends Stack {
                 .create(this, "MskCluster")
                 .clusterName("kafka-cluster")
                 .kafkaVersion("2.8.0")
-                .numberOfBrokerNodes(1)
+                .numberOfBrokerNodes(2)
                 .brokerNodeGroupInfo(CfnCluster.BrokerNodeGroupInfoProperty.builder()
                         .instanceType("kafka.m5.xlarge")
                         .clientSubnets(vpc.getPrivateSubnets().stream()
@@ -115,12 +115,12 @@ public class Localstack extends Stack {
         authService.getNode().addDependency(clynicAuthServiceDB);
 
         FargateService billingService = createFargateService(
-                "ClynicBillingService", "clynic-billing-service",
+                "ClynicBillingService", "billing-service",
                 List.of(4001, 9001), null, null
         );
 
         FargateService analyticsService = createFargateService(
-                "ClynicAnalyticsService", "clynic-analytics-service",
+                "ClynicAnalyticsService", "analytics-service",
                 List.of(4002), null, null
         );
 
@@ -246,7 +246,7 @@ public class Localstack extends Stack {
         if (db != null) {
             containerEnvVars.put(
                     "SPRING_DATASOURCE_URL",
-                    String.format("jdbc:postgres://%s:%s/%s-db",
+                    String.format("jdbc:postgresql://%s:%s/%s-db",
                             db.getDbInstanceEndpointAddress(),
                             db.getDbInstanceEndpointPort(), imageName)
             );
@@ -285,7 +285,7 @@ public class Localstack extends Stack {
 
         ContainerDefinitionOptions containerOptions = ContainerDefinitionOptions
                 .builder()
-                .image(ContainerImage.fromRegistry("api-gateway"))
+                .image(ContainerImage.fromRegistry("clynic-api-gateway"))
                 .environment(Map.of(
                         "SPRING_PROFILES_ACTIVE", "prod",
                         "AUTH_SERVICE_URL", "http://host.docker.internal:4005"
@@ -299,11 +299,11 @@ public class Localstack extends Stack {
                         .toList())
                 .logging(LogDriver.awsLogs(AwsLogDriverProps.builder()
                         .logGroup(LogGroup.Builder.create(this,"APIGatewayLogGroup")
-                                .logGroupName("/ecs/api-gateway")
+                                .logGroupName("/ecs/clynic-api-gateway")
                                 .removalPolicy(RemovalPolicy.DESTROY)
                                 .retention(RetentionDays.ONE_DAY)
                                 .build())
-                        .streamPrefix("api-gateway")
+                        .streamPrefix("clynic-api-gateway")
                         .build()))
                 .build();
 
@@ -312,7 +312,7 @@ public class Localstack extends Stack {
         ApplicationLoadBalancedFargateService.Builder
                 .create(this, "APIGatewayService")
                 .cluster(ecsCluster)
-                .serviceName("api-gateway")
+                .serviceName("clynic-api-gateway")
                 .taskDefinition(taskDefinition)
                 .desiredCount(1)
                 .healthCheckGracePeriod(Duration.seconds(60))
