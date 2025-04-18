@@ -1,4 +1,4 @@
 ### DELETE request to delete a patient
-DELETE https://localhost:4000/123e4567-e89b-12d3-a456-426614174000
+DELETE https://lb-e49390a4.elb.localhost.localstack.cloud:4000/123e4567-e89b-12d3-a456-426614174000
 
 ###

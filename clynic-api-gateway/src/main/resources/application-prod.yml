@@ -1,0 +1,39 @@
+server:
+  port: 4004   # The port on which this API Gateway application will listen
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: patient-service-route          # Unique identifier for this route
+          uri: http://host.docker.internal:4000   # Downstream Clynic service address
+          predicates:
+            - Path=/api/patients/**        # Match any request under /api/patients/
+          filters:
+            - StripPrefix=1                # Remove the first segment (“api”) before forwarding
+            - JwtValidation               # Custom filter to validate JWT on incoming calls
+
+        - id: auth-service-route             # Unique identifier for the Auth route
+          uri: http://host.docker.internal:4005   # Downstream Clynic‑Auth service address
+          predicates:
+            - Path=/auth/**               # Match any request under /auth/
+          filters:
+            - StripPrefix=1                # Remove “auth” segment so the downstream sees “/login”, etc.
+
+        # ——— Documentation routes ———       # These two routes expose each service’s OpenAPI JSON
+
+        - id: api-docs-clynic-route          # Clynic service OpenAPI endpoint via Gateway
+          uri: http://host.docker.internal:4000   # Same Clynic service host
+          predicates:
+            - Path=/api-docs/clynic        # Exact match to /api-docs/clynic
+          filters:
+            - RewritePath=/api-docs/clynic,/v3/api-docs
+            #   Strip “/api-docs/clynic” and forward to service’s /v3/api-docs
+
+        - id: api-docs-auth-route            # Auth service OpenAPI endpoint via Gateway
+          uri: http://host.docker.internal:4005   # Same Auth service host
+          predicates:
+            - Path=/api-docs/auth           # Exact match to /api-docs/auth
+          filters:
+            - RewritePath=/api-docs/auth,/v3/api-docs
+            #   Strip “/api-docs/auth” and forward to service’s /v3/api-docs

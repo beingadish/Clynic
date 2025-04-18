@@ -1,9 +1,9 @@
 ### Signup Request to Create a User
-POST http://localhost:4004/auth/signup
+POST http://lb-e49390a4.elb.localhost.localstack.cloud:4004/auth/signup
 Content-Type: application/json
 
 {
-  "email": "testing2@test.com",
+  "email": "testing@test.com",
   "password": "password123",
   "role": "ADMIN"
 }
